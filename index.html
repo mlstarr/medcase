@@ -889,12 +889,16 @@ function scoreColor(n) {
 // ─────────────────────────────────────────────────────────────────────────────
 // GOOGLE SHEETS STORAGE
 // ─────────────────────────────────────────────────────────────────────────────
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxA1RdJHsuUGUXxd1OWPgD9KIVz58ArOe04MMK8lInLk1a5UTTebxal2-dcNDRlNgs3/exec"; // ← paste your Apps Script Web App URL here
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbxA1RdJHsuUGUXxd1OWPgD9KIVz58ArOe04MMK8lInLk1a5UTTebxal2-dcNDRlNgs3/exec";
 
 async function saveResult(payload) {
   if (!SHEETS_URL) { console.warn("MedSim: No SHEETS_URL set."); return; }
   try {
-    await fetch(SHEETS_URL, { method:"POST", mode:"no-cors", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ action:"save", ...payload }) });
+    await fetch(SHEETS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({ action: "save", ...payload })
+    });
   } catch(e) { console.warn("MedSim: Failed to save:", e); }
 }
 
